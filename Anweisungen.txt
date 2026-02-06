@@ -1,0 +1,9 @@
+cd C:\Users\stefa\sosci-proxy
+local-ssl-proxy --source 8788 --target 8787
+
+
+cd C:\Users\stefa\sosci-proxy
+node server.js
+
+
+https://localhost:8788/chat
