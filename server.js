@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import OpenAI from "openai";
+const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const app = express();
 app.use(cors({
@@ -11,11 +12,6 @@ app.use(cors({
 app.use((req,res,next)=>{
   console.log("REQUEST:", req.method, req.url);
   next();
-});
-
-
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
 });
 
 app.post("/chat", async (req, res) => {
