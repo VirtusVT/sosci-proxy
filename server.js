@@ -18,13 +18,16 @@ app.post("/chat", async (req, res) => {
   try {
     const { messages } = req.body;
 
-    const completion = await client.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages,
-      temperature: 0.2,
-    });
+    const completion = await client.responses.create({
+  model: "gpt-4o-mini",
+  input: messages.map(m => ({
+    role: m.role,
+    content: m.content
+  })),
+});
 
-    res.json({ answer: completion.choices[0].message.content });
+res.json({ answer: completion.output[0].content[0].text });
+
   } catch (err) {
     res.status(500).json({ error: String(err?.message || err) });
   }
