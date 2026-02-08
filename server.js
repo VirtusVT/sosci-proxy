@@ -24,10 +24,14 @@ app.use((req, res, next) => {
 app.post("/chat", async (req, res) => {
   try {
     const { messages } = req.body;
+const fixedMessages = messages.map(m => ({
+  role: m.role === "ai" ? "assistant" : m.role,
+  content: m.content
+}));
 
     const completion = await client.chat.completions.create({
       model: "gpt-4o-mini",
-      messages,
+      messages: fixedMessages,
       temperature: 0.2,
     });
 
