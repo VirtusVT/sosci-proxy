@@ -8,7 +8,11 @@ app.use(cors({
   methods: ["POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"]
 }));
-app.use(express.json({ limit: "1mb" }));
+app.use((req,res,next)=>{
+  console.log("REQUEST:", req.method, req.url);
+  next();
+});
+
 
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
