@@ -3,7 +3,11 @@ import cors from "cors";
 import OpenAI from "openai";
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "*",
+  methods: ["POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"]
+}));
 app.use(express.json({ limit: "1mb" }));
 
 const client = new OpenAI({
