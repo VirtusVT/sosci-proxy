@@ -22,13 +22,13 @@ app.post("/chat", async (req, res) => {
   try {
     const { messages } = req.body;
 
-    const completion = await client.responses.create({
+    const completion = await client.chat.completions.create({
   model: "gpt-4o-mini",
-  input: messages.map(m => ({
-  role: m.role,
-  content: [{ type: "text", text: m.content }]
-})),
+  messages,
+  temperature: 0.2,
 });
+
+res.json({ answer: completion.choices[0].message.content });
 
 res.json({ answer: completion.output_text });
 
